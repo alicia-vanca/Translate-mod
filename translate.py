@@ -29,7 +29,7 @@ logging.basicConfig(
 def format_lua_content(content, file_path):
     print(f"Start format output file")
     try:
-        stylua_path = r"path_to_stylua.exe"
+        stylua_path = r"stylua.exe"
 
         if not os.path.exists(stylua_path):
             print(f"Warning: stylua not found at {stylua_path}")
@@ -523,6 +523,12 @@ def translate_folder(folder_path):
         else:
             print(f"\nTranslating file: \n{file_path}\n")
             translate_file(file_path, translator)
+        print(f"\nSkipped {len(japanese_skip)} Japanese string(s):")
+        for value in japanese_skip:
+            print(value)
+
+    save_translations_to_google_sheets()
+    print("\nTranslation completed.")
 
 
 def require_valid_folder_directory():
@@ -545,14 +551,6 @@ if __name__ == "__main__":
         folder_path = require_valid_folder_directory()
         print(f"Starting translation for folder: {folder_path}")
         translate_folder(folder_path)
-
-        if len(japanese_skip) > 0:
-            print(f"\nSkipped {len(japanese_skip)} Japanese string(s):")
-            for value in japanese_skip:
-                print(value)
-
-        save_translations_to_google_sheets()
-        print("\nTranslation completed.")
     except Exception as e:
         error_msg = f"Fatal error in main execution: {str(e)}"
         logging.error(error_msg)

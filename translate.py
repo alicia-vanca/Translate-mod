@@ -523,6 +523,8 @@ def translate_folder(folder_path):
         else:
             print(f"\nTranslating file: \n{file_path}\n")
             translate_file(file_path, translator)
+            
+    if len(japanese_skip) > 0:
         print(f"\nSkipped {len(japanese_skip)} Japanese string(s):")
         for value in japanese_skip:
             print(value)
